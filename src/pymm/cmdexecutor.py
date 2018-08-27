@@ -21,7 +21,7 @@ class MetamapCommand:
 
     def _get_command(self):
         cmd = [self.metamap_path, "-c", "-Q", "4", "-y", "-K", "--sldi", "-I", "--XMLf1", "--negex"]
-        if self.debug:
+        if not self.debug:
             cmd += ["--silent"]
         cmd += [self.input_file, self.output_file]
         return cmd
