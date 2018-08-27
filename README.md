@@ -21,6 +21,7 @@ python setup.py install
 Create Python MetaMap wrapper object by pointing it to locaiton of MetaMap
 
 <pre><code>
+from pymm import Metamap
 mm = Metamap(METAMAP_PATH)
 </code></pre>
 
@@ -38,7 +39,7 @@ Parse method returns an iterator of Metamap Object iterators corresponding to ea
 <pre><code>
 for idx, mmo in enumerate(mmos):
    for jdx, concept in enumerate(mmo):
-     print (concept.cui, concept.score, concept.matched0
+     print (concept.cui, concept.score, concept.matched)
      print (concept.semtypes, concept.ismapping)
 </code></pre>
 Python MetaMap wrapper object also support debug parameter which persists input and output files as well print the command line used to run the MetaMap
