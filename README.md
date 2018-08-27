@@ -1,10 +1,11 @@
-# Python Wrapper for MetaMap
+# Pymm: Python Wrapper for MetaMap
 
-Python Wrapper for extracting candidate and mapping concepts using MetaMap. The below concept information are extracted:
+Python Wrapper for extracting candidate and mapping concepts using MetaMap. Pymm parses the XML output of the MetaMap. The below concept information are extracted:
 *   score
 *   matched word
 *   cui
 *   semtypes
+*   negated
 
 The flag <code>ismapping</code> is set to True if it is a mapping concept else it is False for a candidate mapping.
 
@@ -100,3 +101,7 @@ try:
 finally:
     mm.close()
 </code></pre>
+
+## Acknowledgement
+This python wrapper is motivated by
+https://github.com/AnthonyMRios/pymetamap. I decide to write a new one as pymetamap does not support extraction of candidate concepts as it parses the MMI output. Pymm parses XML output which I felt is more richer then MMI.

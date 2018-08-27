@@ -10,24 +10,26 @@ __copyright__ = "Srikanth Mujjiga"
 __license__ = "mit"
 
 
-candidate_mapping = { "score" : "CandidateScore", "cui": "CandidateCUI", "semtypes": "SemType", 'ismapping': None, 'matched' : 'CandidateMatched' }
+candidate_mapping = { "score" : "CandidateScore", "cui": "CandidateCUI", "semtypes": "SemType", 'ismapping': None, 'matched' : 'CandidateMatched', 'isnegated': 'Negated' }
 
 class Concept(collections.namedtuple("Concept", list(candidate_mapping.keys()))):
     @classmethod
     def from_xml(cls, candidate, is_mapping=False):
         def get_data(candidate, tagName):
             return candidate.getElementsByTagName(tagName)[0].childNodes[0].data
-        
+
         return cls(
                 cui=get_data(candidate, candidate_mapping['cui']),
                 score=get_data(candidate, candidate_mapping['score']),
                 matched=get_data(candidate, candidate_mapping['matched']),
                 semtypes = [semtype.childNodes[0].data for semtype in candidate.getElementsByTagName(candidate_mapping['semtypes'])],
-                ismapping = is_mapping)
+                ismapping = is_mapping,
+                isnegated = get_data(candidate, candidate_mapping['isnegated'])
+                )
         
     def __str__(self):
         #@todo: print MMI format
-        return "{0}, {1}, {2}, {3}".format(self.score, self.cui, self.semtypes, self.matched)
+        return "{0}, {1}, {2}, {3}, {4}".format(self.score, self.cui, self.semtypes, self.matched, self.isnegated)
 
 class MMOS():
     def __init__(self, mmos):
