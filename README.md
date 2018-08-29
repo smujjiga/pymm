@@ -6,53 +6,56 @@ Python Wrapper for extracting candidate and mapping concepts using MetaMap. Pymm
 *   cui
 *   semtypes
 *   negated
+*   matched word start position
+*   matched word end position
+*   ismapping
 
 The flag <code>ismapping</code> is set to True if it is a mapping concept else it is False for a candidate mapping.
 
 ## Installation
 
-<pre><code>
+<pre>
 git clone https://github.com/smujjiga/pymm.git
 cd pymm
 python setup.py install
-</code></pre>
+</pre>
 
 
 ## Usage
 Create Python MetaMap wrapper object by pointing it to locaiton of MetaMap
 
-<pre><code>
+<pre>
 from pymm import Metamap
 mm = Metamap(METAMAP_PATH)
-</code></pre>
+</pre>
 
 We can check if metamap is running using
-<pre><code>
+<pre>
 assert mm.is_alive()
-</code></pre>
+</pre>
 
 Concept extraction is done via parse method
-<pre><code>
+<pre>
 mmos = mm.parse(['heart attack', 'myocardial infarction'])
-</code></pre>
+</pre>
 
 Parse method returns an iterator of Metamap Object iterators corresponding to each input sentence. Each Metamap Object iterator return the candidate and mapping concepts.
-<pre><code>
+<pre>
 for idx, mmo in enumerate(mmos):
    for jdx, concept in enumerate(mmo):
      print (concept.cui, concept.score, concept.matched)
      print (concept.semtypes, concept.ismapping)
-</code></pre>
+</pre>
 Python MetaMap wrapper object also support debug parameter which persists input and output files as well print the command line used to run the MetaMap
 
-<pre><code>
+<pre>
 mm = Metamap(METAMAP_PATH, debug=True)
-</code></pre>
+</pre>
 
 ## Sample
 Below shown is a code snippet for extracting concepts on large number of sentences.
 
-<pre><code>
+<pre>
 def read_lines(file_name, fast_forward_to, batch_size, preprocessing):
     sentences = list()
     with open(file_name, 'r') as fp:
@@ -100,8 +103,8 @@ try:
         record_checkpoint(curr_checkpoint)
 finally:
     mm.close()
-</code></pre>
+</pre>
 
 ## Acknowledgement
 This python wrapper is motivated by
-https://github.com/AnthonyMRios/pymetamap. Pymetamap parses the MMI output where as Pymm parses XML output. I decided to code Pymm targeting extraction of concept on huge corpus. I have used Pymm to extract candidate and mapping concepts on 10 Million sentence.
+https://github.com/AnthonyMRios/pymetamap. Pymetamap parses the MMI output where as Pymm parses XML output. I decided to code Pymm targeting extraction of concept on huge corpus. I have used Pymm to extract candidate and mapping concepts of 10 Million sentence.
