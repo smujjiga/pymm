@@ -10,7 +10,7 @@ __copyright__ = "Srikanth Mujjiga"
 __license__ = "mit"
 
 
-candidate_mapping = { "score" : "CandidateScore", "cui": "CandidateCUI", "semtypes": "SemType", 'ismapping': None, 'matched' : 'CandidateMatched', 'isnegated': 'Negated' }
+candidate_mapping = { "score" : "CandidateScore", "cui": "CandidateCUI", "semtypes": "SemType", 'ismapping': None, 'matched' : 'CandidateMatched', 'isnegated': 'Negated', 'matchedstart': None, 'matchedend' : None }
 
 class Concept(collections.namedtuple("Concept", list(candidate_mapping.keys()))):
     @classmethod
@@ -24,12 +24,14 @@ class Concept(collections.namedtuple("Concept", list(candidate_mapping.keys())))
                 matched=get_data(candidate, candidate_mapping['matched']),
                 semtypes = [semtype.childNodes[0].data for semtype in candidate.getElementsByTagName(candidate_mapping['semtypes'])],
                 ismapping = is_mapping,
-                isnegated = get_data(candidate, candidate_mapping['isnegated'])
+                isnegated = get_data(candidate, candidate_mapping['isnegated']),
+                matchedstart = [int(m.childNodes[0].data) for m in candidate.getElementsByTagName("TextMatchStart")],
+                matchedend = [int(m.childNodes[0].data) for m in candidate.getElementsByTagName("TextMatchEnd")]
                 )
         
     def __str__(self):
         #@todo: print MMI format
-        return "{0}, {1}, {2}, {3}, {4}".format(self.score, self.cui, self.semtypes, self.matched, self.isnegated)
+        return "{0}, {1}, {2}, {3}, {4}, [{5}:{6}]".format(self.score, self.cui, self.semtypes, self.matched, self.isnegated, self.matchedstart, self.matchedend)
 
 class MMOS():
     def __init__(self, mmos):
