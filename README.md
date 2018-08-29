@@ -104,4 +104,4 @@ finally:
 
 ## Acknowledgement
 This python wrapper is motivated by
-https://github.com/AnthonyMRios/pymetamap. I decide to write a new one as pymetamap does not support extraction of candidate concepts as it parses the MMI output. Pymm parses XML output which I felt is more richer then MMI.
+https://github.com/AnthonyMRios/pymetamap. Pymetamap parses the MMI output where as Pymm parses XML output. I decided to code Pymm targeting extraction of concept on huge corpus. I have used Pymm to extract candidate and mapping concepts on 10 Million sentence.
