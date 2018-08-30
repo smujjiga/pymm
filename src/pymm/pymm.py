@@ -43,7 +43,8 @@ class Metamap:
         """
         try:
             mmos = self.parse(["heart attack"])
-            return True
+            concepts = [concept for _, mmo in enumerate(mmos) for _, concept in enumerate(mmo)]
+            return True if len(concepts) == 7 else False
         except ExpatError:
             return False
 
